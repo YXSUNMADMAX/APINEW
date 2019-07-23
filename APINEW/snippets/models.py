@@ -49,3 +49,28 @@ class Author(models.Model):
 
 
 
+class Match(models.Model):
+    name=models.CharField(max_length=100)
+    mclass=models.IntegerField(default=0)
+    upperamount=models.IntegerField(default=3)
+    nowammount=models.IntegerField(default=0)
+    owner=models.ForeignKey('auth.User', related_name='mybuilt', on_delete=models.CASCADE)
+    introduction=models.CharField(max_length=300)
+    class Meta:
+        ordering = ['mclass']
+
+
+
+
+
+class Team(models.Model):
+    name=models.CharField(max_length=100)
+    upperamount=models.IntegerField(default=3)
+    nowammount=models.IntegerField(default=0)
+    owner=models.ForeignKey('auth.User', related_name='mybuilt1', on_delete=models.CASCADE)
+    formatch = models.ForeignKey('Match', related_name='matchteam', on_delete=models.CASCADE)
+    introduction=models.CharField(max_length=300)
+    class Meta:
+        ordering = ['formatch']
+
+

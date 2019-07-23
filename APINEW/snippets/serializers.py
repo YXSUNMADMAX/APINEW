@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES,Author
+#from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES,Author
+from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES,Author,Match,Team
 from django.contrib.auth.models import User
 
 class SnippetSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,14 +21,26 @@ class AuthorSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     snippets = serializers.HyperlinkedRelatedField(many=True, view_name='snippet-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'snippets')
+        fields = ('url', 'id', 'username', 'snippets','mybuilt')
 
+
+class MatchSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Match
+        fields = ('url', 'id', 'name','mclass','upperamount','nowammount','owner','introduction','matchteam')
+
+
+class TeamSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = Team
+        fields = ('url', 'id', 'name','upperamount','nowammount','owner','introduction','formatch')
 
 
 

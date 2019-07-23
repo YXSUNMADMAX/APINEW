@@ -13,6 +13,10 @@ urlpatterns = [
     path('authors/<int:pk>/', views.AuthorDetail.as_view(),name="author-detail"),
     path('users/', views.UserList.as_view(),name="users"),
     path('users/<int:pk>/', views.UserDetail.as_view(),name="user-detail"),
+    path('matches/', views.MatchList.as_view(),name="matches"),
+    path('matches/<int:pk>/', views.MatchDetail.as_view(),name="match-detail"),
+    path('teams/', views.TeamList.as_view(), name="teams"),
+    path('teams/<int:pk>/', views.TeamDetail.as_view(), name="team-detail"),
 
 ]
 

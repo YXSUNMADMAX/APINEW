@@ -1,5 +1,5 @@
-from snippets.models import Snippet,Author
-from snippets.serializers import SnippetSerializer,AuthorSerializer
+from snippets.models import Snippet,Author,Match,Team
+from snippets.serializers import SnippetSerializer,AuthorSerializer,MatchSerializer,TeamSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from snippets.serializers import UserSerializer
@@ -20,7 +20,9 @@ def api_root(request, format=None):
     return Response({
         'users': reverse('users', request=request, format=format),
         'snippets': reverse('snippets', request=request, format=format),
-        'authors': reverse('authors', request=request, format=format)
+        'authors': reverse('authors', request=request, format=format),
+        'match': reverse('matches', request=request, format=format),
+        'team': reverse('teams', request=request, format=format)
     })
 
 
@@ -75,3 +77,32 @@ class UserList(generics.ListAPIView):
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+
+#.................for Match...............#
+
+
+class MatchList(generics.ListCreateAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+
+class MatchDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+
+
+#.................for Team...............#
+
+
+class TeamList(generics.ListCreateAPIView):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+
+class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
